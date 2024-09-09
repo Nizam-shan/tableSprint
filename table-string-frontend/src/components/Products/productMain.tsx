@@ -1,5 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -20,7 +26,7 @@ const ProductsMain: React.FC = () => {
   if (!globalContext) {
     return <div>Error: GlobalContext not found</div>;
   }
-  const { allProducts, fetchAllProducts } = globalContext;
+  const { allProducts, fetchAllProducts, isLoading } = globalContext;
 
   const rows = allProducts.map((subcategory: any, index: any) => ({
     ...subcategory,
@@ -55,6 +61,14 @@ const ProductsMain: React.FC = () => {
   return (
     <>
       <Box>
+        {isLoading === true && (
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        )}
         <Box
           sx={{
             display: { sm: "block", md: "flex" },

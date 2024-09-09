@@ -1,5 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -54,6 +60,14 @@ const SubCategoryMain: React.FC = () => {
   return (
     <>
       <Box>
+        {isLoading === true && (
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        )}
         <Box
           sx={{
             display: { sm: "block", md: "flex" },

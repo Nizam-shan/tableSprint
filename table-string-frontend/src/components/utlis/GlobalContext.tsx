@@ -36,6 +36,8 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   const [allProducts, setAllProducts] = useState<any[]>([]);
 
   const [isLoading, setLoading] = useState(false);
+  const token = localStorage.getItem("access_token");
+  console.log("🚀 ~ token:", token);
   const fetchCategory = async () => {
     try {
       setLoading(true);
@@ -97,10 +99,12 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   useEffect(() => {
-    fetchCategory();
-    fetchSubCategory();
-    fetchAllProducts();
-  }, []);
+    if (token) {
+      fetchCategory();
+      fetchSubCategory();
+      fetchAllProducts();
+    }
+  }, [token]);
 
   return (
     <GlobalContext.Provider
